@@ -63,10 +63,6 @@ class TestCart:
         cart.add_product(product, 100)
         assert cart.products[product] == 300
 
-    def test_add_product_more_than_available(self, cart, product):
-        with pytest.raises(ValueError):
-            cart.add_product(product, 1001)
-
     def test_remove_product(self, cart, product):
         cart.add_product(product, 1000)
         cart.remove_product(product)
@@ -99,3 +95,8 @@ class TestCart:
         cart.add_product(product, 2)
         cart.buy()
         assert cart.products == {} and product.quantity == 998
+
+    def test_negative_buy(self, cart, product):
+        cart.add_product(product, 1001)
+        with pytest.raises(ValueError):
+            cart.buy()
