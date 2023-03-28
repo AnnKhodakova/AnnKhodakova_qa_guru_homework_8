@@ -1,3 +1,7 @@
+from dataclasses import dataclass
+
+
+@dataclass
 class Product:
     """
     Класс продукта
@@ -6,12 +10,6 @@ class Product:
     price: float
     description: str
     quantity: int
-
-    def __init__(self, name, price, description, quantity):
-        self.name = name
-        self.price = price
-        self.description = description
-        self.quantity = quantity
 
     def __str__(self):
         return f"{self.name}"
@@ -32,7 +30,6 @@ class Product:
         if not self.check_quantity(quantity):
             raise ValueError
         self.quantity -= quantity
-        return self.quantity
 
     def __hash__(self):
         return hash(self.name + self.description)
@@ -61,7 +58,6 @@ class Cart:
                 self.products[product] = quantity
             else:
                 self.products[product] += quantity
-            return self.products[product]
         else:
             raise ValueError
 
@@ -76,13 +72,11 @@ class Cart:
                 del self.products[product]
             else:
                 self.products[product] -= quantity
-            return self.products.get(product, None)
         else:
             raise ValueError
 
     def clear(self):
         self.products = {}
-        return self.products
 
     def get_total_price(self) -> float:
         total_price = 0
